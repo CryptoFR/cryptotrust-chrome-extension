@@ -45,10 +45,16 @@ var Mallory = {
 
     },
     showPopup: function(){
-      window.onload=function(){
-        var expage = document.location.href;
-        document.location.href = chrome.extension.getURL('scam.html')
-      };
+        window.onload=function(){
+            const   exactUrl            = document.location.href,
+                    suspiciousDomain    = document.domain;
+
+            document.location.href = chrome.extension.getURL('scam.html');
+            document.onload = () => {
+                document.getElementById("suscpicious-domain").innerHTML = suspiciousDomain;
+                document.getElementById("i-understand-and-want-to-go-anyway").href = exactUrl;
+            };
+        };
     },
     timestamp: function(){
       return Number.parseInt(Date.now()/1000, 0);
