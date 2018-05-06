@@ -27,7 +27,7 @@
         "https://cryptofr.com/*",
         "https://*.cryptofr.com/*",
         "https://*.cryptotrust.io/*",
-        "https://cryptotrust.io/*",
+        "https://cryptotrust.io/*"
       ],
       "js": [
         "js/cryptotrust.js"
