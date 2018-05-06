@@ -1,0 +1,117 @@
+#overlaycryptofr {
+    z-index: 99999999;
+    overflow: hidden  !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    background: rgba(0,0,0,0) !important;
+    transition: background 0.777s ease !important;
+}
+
+#overlaycryptofr * {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-height: none !important;
+    max-width: none !important;
+    display: block !important;
+    transition: none !important;
+    user-select: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+#overlaycryptofr span, #overlaycryptofr strong, #overlaycryptofr em, #overlaycryptofr a {
+    display: inline-block !important;
+}
+
+#overlaycryptofr #popinwarning {
+    top: -100% !important;
+    position: fixed !important;
+    background-color: rgb(187, 0, 0) !important;
+    color: white !important;
+    padding: 20px 40px 25px !important;
+    width: 80% !important;
+    left: 10% !important;
+    border-radius: 2px !important;
+    border: 1px solid #9c1616 !important;
+    transition: top 0.333s ease !important;
+}
+
+#overlaycryptofr #popinwarning, #overlaycryptofr #popinwarning * {
+    box-sizing: border-box !important;
+}
+
+#overlaycryptofr.show {
+    background: rgba(37, 2, 2, 0.9) !important;
+}
+
+#overlaycryptofr.show #popinwarning {
+    top: 0 !important;
+}
+
+#overlaycryptofr .topcontent {
+    position: relative !important;
+    padding-left: 70px !important;
+}
+
+#overlaycryptofr h1 {
+    margin-bottom: 20px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.24) !important;
+    padding-bottom: 14px !important;
+    font-size: 16px !important;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+#overlaycryptofr .cryptofr {
+    display: inline-block !important;
+    background: transparent url(https://cryptofr.com/assets/uploads/system/site-logo.png) no-repeat 0 0 !important;
+    background-size: 100% auto !important;
+    text-indent: 100px !important;
+    overflow: hidden !important;
+    width: 80px !important;
+    height: 20px !important;
+    margin: 0 2px -4px  !important;
+}
+
+#overlaycryptofr #i-understand-and-want-to-go-anyway {
+    display: block !important;
+    text-decoration: none !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-weight: bold !important;
+    margin: 20px auto 0 !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    padding: 6px 20px !important;
+    text-transform: uppercase !important;
+    text-align: center !important;
+    font-size: 12px !important;
+}
+
+#overlaycryptofr #i-understand-and-want-to-go-anyway:hover {
+    color: rgba(255, 255, 255, 0.8) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+#overlaycryptofr .intro {
+    font-size: 13px !important;
+    min-height: 47px !important;
+    line-height: 29px !important;
+}
+
+#overlaycryptofr strong {
+    text-decoration: underline !important;
+}
+
+#overlaycryptofr #suscpicious-domain {
+    font-weight: bold !important;
+}
+
+#overlaycryptofr .warning-sign {
+    position: absolute !important;
+    top: 8px !important;
+    left: 4px !important;
+}
