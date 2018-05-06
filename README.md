@@ -15,7 +15,7 @@ There is no dependencies. The extension takes the contributive list of fraudulen
 
  * License
  * (!) Add multiple lists from https://github.com/CryptoFR/crypto-scams-fr
+ * Add a comment to the current website
  * (!) Toggle buttons that activates lists of blocked sites (scams, caution, )
- * Vuejs
- * Popup with some relevant content (opt-in)
+ * Popup with some relevant content about the current website ()
  * Badges updated at every new post on the forum

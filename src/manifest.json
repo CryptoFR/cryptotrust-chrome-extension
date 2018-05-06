@@ -1,7 +1,7 @@
 {
   "name": "Mallory by CryptoFR 🚀",
-  "description": "Mallory is a chrome extension that lets you know if the website you are currently
-   browsing has been previously referenced by the community as a scam site or a dangerous site.",
+  "description": "Mallory is a Chrome extension that lets you know if you can trust the website you are currently
+   browsing. Websites are referenced by the community at https://github.com/CryptoFR/crypto-scams-fr.",
   "version": "0.1",
   "permissions": [
 		"tabs",
