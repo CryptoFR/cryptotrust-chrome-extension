@@ -2,7 +2,7 @@
 var Mallory = {
     instance:null,
     url: "https://raw.githubusercontent.com/CryptoFR/crypto-scams-fr/master/websites.txt",
-    ttl: 5,
+    ttl: 86400,
     debugging : true,
 
     init : function(){
