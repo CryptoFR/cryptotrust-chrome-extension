@@ -1,7 +1,7 @@
 {
-  "name": "Mallory by CryptoFR 🚀",
-  "description": "Mallory is a chrome extension that lets you know if the website you are currently
-   browsing has been previously referenced by the community as a scam site or a dangerous site.",
+  "name": "Cryptotrust by CryptoFR 🚀",
+  "description": "Cryptotrust is a Chrome extension that lets you know if you can trust the website you are currently
+   browsing. Websites are referenced by the community at https://github.com/CryptoFR/crypto-scams-fr.",
   "version": "0.1",
   "permissions": [
 		"tabs",
@@ -12,7 +12,7 @@
     "https://raw.github.com/CryptoFR/*"
 	],
   "browser_action": {
-    "default_title": "Mallory by CryptoFR 🚀",
+    "default_title": "Cryptotrust by CryptoFR 🚀",
     "default_icon": "img/pngx32.png",
     "default_popup": "popup.html"
   },
@@ -24,10 +24,13 @@
         "https://*/*"
       ],
       "exclude_matches":  [
-        "http://*.cryptofr.com/*"
+        "https://cryptofr.com/*",
+        "https://*.cryptofr.com/*",
+        "https://*.cryptotrust.io/*",
+        "https://cryptotrust.io/*"
       ],
       "js": [
-        "js/mallory.js"
+        "js/cryptotrust.js"
       ],
       "run_at": "document_start",
       "all_frames": false

@@ -1,45 +1,53 @@
 
-var Mallory = {
-    instance:null,
+var cryptotrust = {
+
     url: "https://raw.githubusercontent.com/CryptoFR/crypto-scams-fr/master/websites.txt",
+
     ttl: 86400,
+
     debugging : true,
 
     init : function(){
 
-      Mallory.debug("Scanning scammy sites.");
-      Mallory.verifyFreshness();
-      Mallory.isMallory();
+      cryptotrust.debug("🚀 Scanning scammy sites.");
+      cryptotrust.verifyFreshness();
+      cryptotrust.iscryptotrust();
+
     },
     verifyFreshness : function(){
+
       // Verify Storage and freshness
       chrome.storage.local.get(['lastDownload'], function(result) {
-        Mallory.debug("Timestamp " + result.lastDownload);
-        if(result.lastDownload === undefined || result.lastDownload + Mallory.ttl < Number.parseInt(Date.now()/1000, 0)) {
-          Mallory.getDistantDatabase();
+        cryptotrust.debug("Timestamp " + result.lastDownload);
+        if(result.lastDownload === undefined || result.lastDownload + cryptotrust.ttl < Number.parseInt(Date.now()/1000, 0)) {
+          cryptotrust.getDistantDatabase();
         }
       });
 
     },
     getDistantDatabase: function(){
-      // FIXME : ugly pooling
+
+      // FIXME : ugly pooling -> api ?
       var xmlhttp;
       xmlhttp = new XMLHttpRequest();
+
       xmlhttp.onreadystatechange = function(){
           if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
-              chrome.storage.local.set({"lastDownload":  Mallory.timestamp()});
+              chrome.storage.local.set({"lastDownload":  cryptotrust.timestamp()});
               chrome.storage.local.set({"scamSites": xmlhttp.responseText});
           }
       }
-      xmlhttp.open("GET", Mallory.url, true);
+
+      xmlhttp.open("GET", cryptotrust.url, true);
       xmlhttp.send();
+
     },
-    isMallory: function(){
-      return chrome.storage.local.get(['scamSites'], function(result){
+    iscryptotrust: function(){
+
+      chrome.storage.local.get(['scamSites'], function(result){
         if(result.scamSites.indexOf(document.domain) != -1) {
-          console.log('🚀');
           console.log('🤔 Scammy site.');
-          Mallory.showPopup();
+          cryptotrust.showPopup();
         }
       });
 
@@ -57,12 +65,16 @@ var Mallory = {
         };
     },
     timestamp: function(){
+
       return Number.parseInt(Date.now()/1000, 0);
+
     },
     debug: function(message) {
-      if(Mallory.debugging === true) {
+
+      if(cryptotrust.debugging === true) {
         console.log(message);
       }
+
     }
 };
-Mallory.init();
+cryptotrust.init();
