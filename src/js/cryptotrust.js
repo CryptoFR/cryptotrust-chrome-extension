@@ -81,7 +81,7 @@ class CryptoTrust {
                           </div>
                           <p class="intro">Le domaine <span id="suscpicious-domain">example.com</span> a été signalé par la communauté <a class="cryptofr" href="https://cryptofr.com/" target="_blank">CryptoFR</a> comme étant dangereux.</p>
                         </div>
-                        <a href="#" id="i-understand-and-want-to-go-anyway">Je comprends le risque et souhaite accéder malgré tout à la page demandée</a>
+                        <a href="#" id="i-understand-and-want-to-go-anyway"><span class="not-hover">Je comprends le risque et souhaite accéder malgré tout à la page demandée</span><span class="hover">...on vous aura prévenus ! ¯\\_(ツ)_/¯</span></a>
                       </div>
                     </div>
                     `;
