@@ -4,3 +4,12 @@ Mallory is a chrome extension that lets you know if the website you are currentl
 # Dependencies
 
 There is no dependencies. The extension takes the contributive list of fraudulent websites located at https://github.com/CryptoFR/crypto-scams-fr
+
+# TODOs
+
+ * License
+ * (!) Add multiple lists from https://github.com/CryptoFR/crypto-scams-fr
+ * (!) Toggle buttons that activates lists of blocked sites (scams, caution, )
+ * Vuejs
+ * Popup with some relevant content (opt-in)
+ * Badges updated at every new post on the forum

