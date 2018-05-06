@@ -1,0 +1,20 @@
+html{
+  width:357px; height:600px;
+}
+body{margin:0px !important;border-radius:5px;font-family: "Material+Icons",Helvetica, Arial,sans-serif;}
+.bar {
+  box-sizing: border-box;
+  position: relative;
+  background: #1e1f33 url(//i.gyazo.com/465d861270e16a3cafe10530a47cc296.png) no-repeat right top;
+  color: white;
+  height: 64px;
+  width: 100%;
+  padding: 16px;
+  text-align: center;≤
+}
+#logo{
+  height:36px;
+}
+.content{
+  padding:15px
+}

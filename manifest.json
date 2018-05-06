@@ -1,0 +1,40 @@
+{
+  "name": "Mallory by CryptoFR 🚀",
+  "description": "Mallory is a chrome extension that lets you know if the website you are currently
+   browsing has been previously referenced by the community as a scam site or a dangerous site.",
+  "version": "0.1",
+  "permissions": [
+		"tabs",
+		"contextMenus",
+    "storage",
+		"https://*.cryptofr.com/*",
+		"https://api.cryptofr.com/*",
+    "https://raw.github.com/CryptoFR/*"
+	],
+  "browser_action": {
+    "default_title": "Mallory by CryptoFR 🚀",
+    "default_icon": "img/pngx32.png",
+    "default_popup": "popup.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "exclude_matches":  [
+        "http://*.cryptofr.com/*"
+      ],
+      "js": [
+        "js/mallory.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    "scam.html"
+  ],
+  "manifest_version": 2
+}
