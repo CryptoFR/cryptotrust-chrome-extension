@@ -2,14 +2,18 @@
 
 class Background {
 
-    init() {
-      console.log("prout")
+    constructor() {
         this.urls = [
             "https://raw.githubusercontent.com/CryptoFR/crypto-scams-fr/master/websites.txt"
         ],
         this.ttl = 86400;
         this.debugging = true;
+        this.tabIcons = {};
+        this.activeTab = false;
         this.verifyFreshness();
+        this.listenToMessages();
+        // Reinit authorized domains
+        chrome.storage.local.set({"authorized": []});
     }
 
     /**
@@ -25,17 +29,45 @@ class Background {
         });
     }
 
+    changeIcon(icon) {
+        chrome.browserAction.setIcon({
+            path : {
+                "16": `img/icons/16w/${icon}.png`,
+                "32": `img/icons/32w/${icon}.png`,
+                "48": `img/icons/48w/${icon}.png`,
+                "64": `img/icons/64w/${icon}.png`,
+                "128": `img/icons/128w/${icon}.png`
+            }
+        });
+    }
+
+    listenToMessages() {
+        chrome.runtime.onMessage.addListener((request) => {
+            if (request.type == "icon-change") {
+                const icon = request.icon;
+                this.changeIcon(icon);
+                this.tabIcons[this.activeTab] = icon;
+            }
+        });
+        chrome.tabs.onActivated.addListener((activeInfo) => {
+            this.activeTab = activeInfo.tabId;
+            if (typeof this.tabIcons[this.activeTab] !== "undefined") {
+                this.changeIcon(this.tabIcons[this.activeTab]);
+            } else {
+                this.changeIcon("default");
+            }
+        });
+    }
+
 
     setIconIdle() {
+
     }
     setIconReady() {
+
     }
 
     getDistantDatabases() {
-
-    //icon  chrome.browserAction.setIcon({'16': 'img/pngredx48.png'}, {});
-
-
       // FIXME : ugly pooling -> api ?
       const xmlhttp = new XMLHttpRequest();
 
@@ -64,5 +96,3 @@ class Background {
 }
 
 const Bk = new Background();
-
-Bk.init();

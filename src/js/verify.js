@@ -2,17 +2,31 @@
 
 class Verify {
 
-    init() {
+    constructor() {
         this.debugging = true;
         this.debug("🚀 Scanning scammy sites.");
         this.isScammy();
     }
 
+    setIcon(icon) {
+        chrome.runtime.sendMessage({type: "icon-change", icon: icon});
+    }
+
     isScammy() {
         chrome.storage.local.get(["scamSites"], (result) => {
-            if(result.scamSites.indexOf(document.domain) != -1) {
+            if(result.scamSites.indexOf(document.domain) !== -1) {
                 this.debug("🤔 Scammy site.");
-                this.showPopup();
+                this.setIcon("scam");
+                chrome.storage.local.get(["authorized"], (results) => {
+                    let authorizedDomains = results.authorized;
+                    if(authorizedDomains.indexOf(document.domain) < 0) {
+                       this.showPopup();
+                    } else {
+                        this.debug("Domain " + document.domain + " authorized for this session.");
+                    }
+                });
+            } else {
+                this.setIcon("unknown");
             }
         });
     }
@@ -51,13 +65,18 @@ class Verify {
                     `;
                 document.getElementById("suscpicious-domain").innerHTML = suspiciousDomain;
                 document.getElementById("i-understand-and-want-to-go-anyway").onclick = () => {
+                    chrome.storage.local.get(["authorized"], (results) => {
+                        if (typeof results !== "array") { results = []; }
+                        results.push(suspiciousDomain);
+                        chrome.storage.local.set({ "authorized" : results });
+                    });
                     document.getElementById("overlaycryptofr").remove();
                     return false;
                 };
-                document.getElementById("why-btn").href = "https://cryptofr.com/search?term=" + encodeURIComponent(suspiciousDomain);
+                document.getElementById("why-btn").href = `https://cryptofr.com/search?term=${encodeURIComponent(suspiciousDomain)}&in=titles&categories[]=67`;
                 setTimeout(() => {
                     document.getElementById("overlaycryptofr").className = "show";
-                }, 1700);
+                }, 333);
             };
             document.body.appendChild(SkinCSS);
         };
@@ -71,5 +90,3 @@ class Verify {
 }
 
 const VF = new Verify();
-
-VF.init();
