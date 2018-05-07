@@ -57,15 +57,13 @@ class CryptoTrust {
      */
     showPopup() {
         window.onload = () => {
-            const   exactUrl            = document.location.href,
-                    suspiciousDomain    = document.domain,
+            const   suspiciousDomain    = document.domain,
                     SkinCSS             = document.createElement("link");
 
             SkinCSS.setAttribute("rel", "stylesheet");
             SkinCSS.setAttribute("type", "text/css");
-            SkinCSS.setAttribute("href", chrome.extension.getURL("css/popin.css"));
+            SkinCSS.setAttribute("href", chrome.extension.getURL("css/injected.css"));
             SkinCSS.onload = () => {
-
                 document.body.innerHTML = document.body.innerHTML + `
                     <div id="overlaycryptofr">
                       <section id="popinwarning">
@@ -87,7 +85,10 @@ class CryptoTrust {
                     </div>
                     `;
                 document.getElementById("suscpicious-domain").innerHTML = suspiciousDomain;
-                document.getElementById("i-understand-and-want-to-go-anyway").href = exactUrl;
+                document.getElementById("i-understand-and-want-to-go-anyway").onclick = () => {
+                    document.getElementById("overlaycryptofr").remove();
+                    return false;
+                };
                 document.getElementById("why-btn").href = "https://cryptofr.com/search?term=" + encodeURIComponent(suspiciousDomain);
                 setTimeout(() => {
                     document.getElementById("overlaycryptofr").className = "show";

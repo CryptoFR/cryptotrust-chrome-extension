@@ -36,8 +36,8 @@
     }
   ],
   "web_accessible_resources": [
-    "scam.html",
-    "css/popin.css",
+    "css/popup.css",
+    "css/injected.css",
     "img/site-logo.png"
   ],
   "manifest_version": 2
