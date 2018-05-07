@@ -2,17 +2,24 @@
 
 class Verify {
 
-    init() {
+    constructor() {
         this.debugging = true;
         this.debug("🚀 Scanning scammy sites.");
         this.isScammy();
     }
 
+    setIcon(icon) {
+        chrome.runtime.sendMessage({type: "icon-change", icon: icon});
+    }
+
     isScammy() {
         chrome.storage.local.get(["scamSites"], (result) => {
-            if(result.scamSites.indexOf(document.domain) != -1) {
+            if(result.scamSites.indexOf(document.domain) !== -1) {
                 this.debug("🤔 Scammy site.");
+                this.setIcon("scam");
                 this.showPopup();
+            } else {
+                this.setIcon("unknown");
             }
         });
     }
@@ -54,7 +61,7 @@ class Verify {
                     document.getElementById("overlaycryptofr").remove();
                     return false;
                 };
-                document.getElementById("why-btn").href = "https://cryptofr.com/search?term=" + encodeURIComponent(suspiciousDomain);
+                document.getElementById("why-btn").href = `https://cryptofr.com/search?term=${encodeURIComponent(suspiciousDomain)}&in=titles&categories[]=67`;
                 setTimeout(() => {
                     document.getElementById("overlaycryptofr").className = "show";
                 }, 1700);
@@ -71,5 +78,3 @@ class Verify {
 }
 
 const VF = new Verify();
-
-VF.init();

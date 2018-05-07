@@ -78,7 +78,7 @@ form .switch-field {
 
 .switch-field label {
   display: inline-block;
-  width: 50%;
+  width: 33.3%;
   background-color: #fafafa;
   color: rgba(0, 0, 0, 0.6);
   font-size: 13px;
@@ -96,8 +96,15 @@ form .switch-field {
 }
 
 .switch-field #is-not-scam:checked + label {
-  background-color: #A5DC86;
+  background-color: #76b766;
   box-shadow: none;
+  color: white;
+}
+
+.switch-field #is-suspicious:checked + label {
+  background-color: #dc7e19;
+  box-shadow: none;
+  color: white;
 }
 
 .switch-field #is-scam:checked + label {
