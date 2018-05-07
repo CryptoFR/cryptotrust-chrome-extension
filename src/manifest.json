@@ -1,6 +1,7 @@
 {
-  "name": "Cryptotrust by CryptoFR 🚀",
-  "description": "Cryptotrust is a Chrome extension that lets you know if you can trust the website you are currently browsing. Websites are referenced by the community at https://github.com/CryptoFR/crypto-scams-fr.",
+  "name": "__MSG_appName__",
+  "description": "__MSG_appDesc__",
+  "default_locale": "en",
   "version": "0.1",
   "icons": {
     "16": "img/icons/16.png",
@@ -21,8 +22,8 @@
     "scripts": ["js/background.js"]
   },
   "browser_action": {
-    "default_title": "Cryptotrust by CryptoFR 🚀",
-    "default_icon": "img/icons/32w/default.png",
+    "default_title": "__MSG_appName__",
+    "default_icon": "img/icons/32.png",
     "default_popup": "popup.html"
   },
   "content_scripts": [
@@ -47,6 +48,8 @@
   "web_accessible_resources": [
     "css/popup.css",
     "css/injected.css",
+    "js/injected.js",
+    "html/injected.html",
     "img/site-logo.png"
   ],
   "manifest_version": 2

@@ -4,14 +4,17 @@ class Background {
 
     constructor() {
         this.urls = [
-            "https://raw.githubusercontent.com/CryptoFR/crypto-scams-fr/master/websites.txt"
+          "https://raw.githubusercontent.com/CryptoFR/crypto-scams-fr/master/websites.txt",
+          "https://raw.githubusercontent.com/CryptoFR/crypto-scams-fr/master/misc.txt"
         ],
         this.ttl = 86400;
         this.debugging = true;
         this.tabIcons = {};
         this.activeTab = false;
+
         this.verifyFreshness();
         this.listenToMessages();
+        
         // Reinit authorized domains
         chrome.storage.local.set({"authorized": []});
     }
@@ -42,6 +45,7 @@ class Background {
     }
 
     listenToMessages() {
+
         chrome.runtime.onMessage.addListener((request) => {
             if (request.type == "icon-change") {
                 const icon = request.icon;
@@ -49,6 +53,7 @@ class Background {
                 this.tabIcons[this.activeTab] = icon;
             }
         });
+
         chrome.tabs.onActivated.addListener((activeInfo) => {
             this.activeTab = activeInfo.tabId;
             if (typeof this.tabIcons[this.activeTab] !== "undefined") {
@@ -57,18 +62,10 @@ class Background {
                 this.changeIcon("default");
             }
         });
-    }
-
-
-    setIconIdle() {
-
-    }
-    setIconReady() {
 
     }
 
     getDistantDatabases() {
-      // FIXME : ugly pooling -> api ?
       const xmlhttp = new XMLHttpRequest();
 
       xmlhttp.onreadystatechange = () => {

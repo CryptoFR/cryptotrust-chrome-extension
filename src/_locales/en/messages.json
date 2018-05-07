@@ -1,0 +1,54 @@
+{
+  "appName": {
+    "message": "Cryptotrust by CryptoFR 🚀",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "appDesc": {
+    "message": "Cryptotrust is a Chrome extension
+     that lets you know if you can trust
+     the website you are currently browsing.
+     Websites are referenced by the community
+      at https://github.com/CryptoFR/crypto-scams-fr.",
+    "description":"The description of the application, displayed in the web store."
+  },
+  "popupTitle": {
+    "message": "CryptoFR Spam Report",
+    "description":""
+  },
+  "doYouWantToAddComment": {
+    "message":"Do you want to add a comment about",
+    "description":""
+  },
+  "websiteTrustLevel": {
+    "message":"Level of trust for this website",
+    "description":""
+  },
+  "verified": {
+    "message":"Verified",
+    "description":""
+  },
+  "atRisk": {
+    "message":"At risk",
+    "description":""
+  },
+  "dangerous": {
+    "message":"Dangerous",
+    "description":""
+  },
+  "comment": {
+    "message":"Your comment",
+    "description":""
+  },
+  "send": {
+    "message":"Send",
+    "description":""
+  },
+  "cautionDangerous": {
+    "message":"<strong>Caution</strong>, potentially malicious website  !",
+    "description":""
+  },
+  "blank": {
+    "message":"blank",
+    "description":""
+  }
+}
