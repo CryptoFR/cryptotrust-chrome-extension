@@ -16,7 +16,7 @@ class Background {
      * Verify Storage and freshness
      */
     verifyFreshness() {
-        chrome.storage.local.get(["lastDownloads"], (result) => {
+        chrome.storage.local.get(["lastDownload"], (result) => {
             this.debug("Timestamp " + result.lastDownload);
             if(typeof result.lastDownload === "undefined"
                 || result.lastDownload + this.ttl < Number.parseInt(Date.now()/1000, 0)) {
