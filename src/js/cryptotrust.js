@@ -57,19 +57,17 @@ class CryptoTrust {
      */
     showPopup() {
         window.onload = () => {
-            const   exactUrl            = document.location.href,
-                    suspiciousDomain    = document.domain,
+            const   suspiciousDomain    = document.domain,
                     SkinCSS             = document.createElement("link");
 
             SkinCSS.setAttribute("rel", "stylesheet");
             SkinCSS.setAttribute("type", "text/css");
-            SkinCSS.setAttribute("href", chrome.extension.getURL("css/popin.css"));
+            SkinCSS.setAttribute("href", chrome.extension.getURL("css/injected.css"));
             SkinCSS.onload = () => {
-
                 document.body.innerHTML = document.body.innerHTML + `
                     <div id="overlaycryptofr">
-                      <div id="popinwarning">
-                        <h1><strong>Attention</strong>, site potentiellement malveillant !</h1>
+                      <section id="popinwarning">
+                        <header><h1><strong>Attention</strong>, site potentiellement malveillant !</h1> <a class="cryptofr" href="https://cryptofr.com/" target="_blank">CryptoFR</a></header>
                         <div class="topcontent">
                           <div class="warning-sign">
                             <svg xmlns="http://www.w3.org/2000/svg" width="48px" height="48px" viewBox="0 0 48 48" xml:space="preserve">
@@ -81,13 +79,20 @@ class CryptoTrust {
                           </div>
                           <p class="intro">Le domaine <span id="suscpicious-domain">example.com</span> a été signalé par la communauté <a class="cryptofr" href="https://cryptofr.com/" target="_blank">CryptoFR</a> comme étant dangereux.</p>
                         </div>
+                        <a href="#" id="why-btn" target="_blank">En savoir plus</a>
                         <a href="#" id="i-understand-and-want-to-go-anyway"><span class="not-hover">Je comprends le risque et souhaite accéder malgré tout à la page demandée</span><span class="hover">...on vous aura prévenus ! ¯\\_(ツ)_/¯</span></a>
-                      </div>
+                      </section>
                     </div>
                     `;
                 document.getElementById("suscpicious-domain").innerHTML = suspiciousDomain;
-                document.getElementById("i-understand-and-want-to-go-anyway").href = exactUrl;
-                document.getElementById("overlaycryptofr").className = "show";
+                document.getElementById("i-understand-and-want-to-go-anyway").onclick = () => {
+                    document.getElementById("overlaycryptofr").remove();
+                    return false;
+                };
+                document.getElementById("why-btn").href = "https://cryptofr.com/search?term=" + encodeURIComponent(suspiciousDomain);
+                setTimeout(() => {
+                    document.getElementById("overlaycryptofr").className = "show";
+                }, 1700);
             };
             document.body.appendChild(SkinCSS);
         };
