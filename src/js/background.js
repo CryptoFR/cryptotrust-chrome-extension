@@ -12,6 +12,8 @@ class Background {
         this.activeTab = false;
         this.verifyFreshness();
         this.listenToMessages();
+        // Reinit authorized domains
+        chrome.storage.local.set({"authorized": []});
     }
 
     /**

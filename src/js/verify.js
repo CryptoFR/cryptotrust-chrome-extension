@@ -17,7 +17,14 @@ class Verify {
             if(result.scamSites.indexOf(document.domain) !== -1) {
                 this.debug("🤔 Scammy site.");
                 this.setIcon("scam");
-                this.showPopup();
+                chrome.storage.local.get(["authorized"], (results) => {
+                    let authorizedDomains = results.authorized;
+                    if(authorizedDomains.indexOf(document.domain) < 0) {
+                       this.showPopup();
+                    } else {
+                        this.debug("Domain " + document.domain + " authorized for this session.");
+                    }
+                });
             } else {
                 this.setIcon("unknown");
             }
@@ -58,13 +65,18 @@ class Verify {
                     `;
                 document.getElementById("suscpicious-domain").innerHTML = suspiciousDomain;
                 document.getElementById("i-understand-and-want-to-go-anyway").onclick = () => {
+                    chrome.storage.local.get(["authorized"], (results) => {
+                        if (typeof results !== "array") { results = []; }
+                        results.push(suspiciousDomain);
+                        chrome.storage.local.set({ "authorized" : results });
+                    });
                     document.getElementById("overlaycryptofr").remove();
                     return false;
                 };
                 document.getElementById("why-btn").href = `https://cryptofr.com/search?term=${encodeURIComponent(suspiciousDomain)}&in=titles&categories[]=67`;
                 setTimeout(() => {
                     document.getElementById("overlaycryptofr").className = "show";
-                }, 1700);
+                }, 333);
             };
             document.body.appendChild(SkinCSS);
         };
