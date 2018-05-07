@@ -34,9 +34,9 @@ class Verify {
      */
     async showMessage() {
       await this.pageLoaded();
-      await this.injectJS("js/injected.js");
       await this.injectCSS("css/injected.css");
       await this.injectHTML("html/injected.html");
+      await this.injectJS("js/injected.js");
       this.translate();
     }
     async pageLoaded() {
