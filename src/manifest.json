@@ -29,14 +29,13 @@
         "https://cryptotrust.io/*"
       ],
       "js": [
-        "js/cryptotrust.js"
+        "verify.js"
       ],
       "run_at": "document_start",
       "all_frames": false
     }
   ],
   "web_accessible_resources": [
-    "scam.html",
     "css/popin.css",
     "img/site-logo.png"
   ],
