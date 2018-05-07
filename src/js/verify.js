@@ -17,9 +17,7 @@ class Verify {
                 chrome.storage.local.get(["authorized"], (results) => {
                     let authorizedDomains = results.authorized;
                     if(authorizedDomains.indexOf(document.domain) < 0) {
-
                        this.showMessage();
-
                     } else {
                         this.debug("Domain " + document.domain + " authorized for this session.");
                     }
