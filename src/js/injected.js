@@ -1,7 +1,6 @@
 // Define suspicious domain in the popup
 console.log('ok');
 
-localizeHTML();
 suspiciousDomain    = document.domain;
 document.getElementById("suscpicious-domain").innerHTML = suspiciousDomain;
 
