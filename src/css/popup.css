@@ -19,7 +19,7 @@ header {
   color: white;
   height: 40px;
   width: 100%;
-  padding: 4px 10px;
+  padding: 8px 12px;
   text-align: right;
 }
 
@@ -34,7 +34,7 @@ header {
 }
 
 #logo{
-  height: 30px;
+  height: 26px;
 }
 
 form {
