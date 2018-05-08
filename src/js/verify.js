@@ -3,10 +3,8 @@
 class Verify {
 
     constructor() {
-
         this.debugging = true;
-
-        this.suspiciousDomain = document.domain;
+        this.suspiciousDomain = this.removeSubdomain(window.location.hostname);
         this.isScammy();
     }
 
@@ -14,11 +12,12 @@ class Verify {
     isScammy() {
         this.debug("🚀 Scanning scammy sites.");
         chrome.storage.local.get(["scamSites"], (result) => {
-            if(result.scamSites.indexOf(document.domain) !== -1) {
+            console.log(this.suspiciousDomain)
+            this.debug(result.scamSites.indexOf(this.suspiciousDomain));
+            if(result.scamSites.indexOf(this.suspiciousDomain) !== -1) {
                 this.debug("🤔 Scammy site.");
                 this.setIcon("scam");
                 this.checkIfAuthorized();
-
             } else {
                 this.setIcon("unknown");
             }
@@ -141,11 +140,11 @@ class Verify {
         chrome.storage.local.get(["authorized"], (results) => {
 
             let authorizedDomains = results.authorized;
-            if(authorizedDomains.indexOf(document.domain) < 0) {
+            if(authorizedDomains.indexOf(this.suspiciousDomain) < 0) {
                 console.log("inscription")
 
                 if (typeof results !== "array") { results = []; }
-                results.push(document.domain);
+                results.push(this.suspiciousDomain);
                 chrome.storage.local.set({ "authorized" : results });
                 return true;
 
@@ -155,6 +154,22 @@ class Verify {
         });
     }
 
+
+    removeSubdomain(domain) {
+        domain = domain.replace(/^www\./, '');
+
+        var parts = domain.split('.');
+
+        while (parts.length > 3) {
+            parts.shift();
+        }
+
+        if (parts.length === 3 && ((parts[1].length > 2 && parts[2].length > 2) || (secondTLDs.indexOf(parts[1]) === -1) && firstTLDs.indexOf(parts[2]) === -1)) {
+            parts.shift();
+        }
+
+        return parts.join('.');
+    };
     setIcon(icon) {
         chrome.runtime.sendMessage({type: "icon-change", icon: icon});
     }
