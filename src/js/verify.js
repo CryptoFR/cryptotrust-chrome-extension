@@ -12,8 +12,7 @@ class Verify {
     isScammy() {
         this.debug("🚀 Scanning scammy sites.");
         chrome.storage.local.get(["scamSites"], (result) => {
-            console.log(this.suspiciousDomain)
-            this.debug(result.scamSites.indexOf(this.suspiciousDomain));
+            this.debug(this.suspiciousDomain, result.scamSites.indexOf(this.suspiciousDomain));
             if(result.scamSites.indexOf(this.suspiciousDomain) !== -1) {
                 this.debug("🤔 Scammy site.");
                 this.setIcon("scam");
@@ -28,7 +27,6 @@ class Verify {
     * Inject the pop-in in current page
     */
     async showMessage() {
-
         await this.pageLoaded();
         await this.injectCSS("css/injected.css");
         await this.injectHTML("html/injected.html");
@@ -36,24 +34,30 @@ class Verify {
         this.updatePlaceholders();
         this.addListeners();
         this.addTimeOut();
-
     }
+
     async pageLoaded() {
         return new Promise((resolve) => {
             window.onload = () => {
-                console.log("page Loaded");
+                this.debug("Page Loaded");
                 resolve(true);
             }
         });
     }
+
     async injectHTML(htmlpage) {
         return new Promise((resolve, reject) => {
 
             fetch(chrome.extension.getURL(htmlpage))
             .then(response => response.text())
             .then(data => {
-                document.body.innerHTML = document.body.innerHTML + data;
-                console.log("html Loaded");
+                // Proxy div to avoid blinking on load
+                const divToInject = document.createElement("div");
+                divToInject.setAttribute("id", "overlaycryptofr");
+                divToInject.className = "scam"; //
+                divToInject.innerHTML = data;
+                document.body.appendChild(divToInject);
+                this.debug("HTML Injected");
                 resolve(true);
             })
             .catch((err) => {
@@ -65,25 +69,28 @@ class Verify {
 
     async injectCSS(filename) {
         return new Promise((resolve, reject) => {
-            let cssFile = document.createElement("link")
+            let cssFile = document.createElement("link");
             cssFile.setAttribute("rel", "stylesheet");
             cssFile.setAttribute("type", "text/css");
             cssFile.setAttribute("href", chrome.extension.getURL(filename));
-            if( !document.body.appendChild(cssFile)){
-                throw new Error('appendChild CSS not possible now');
+            if(!document.body.appendChild(cssFile)){
+                reject(new Error("appendChild CSS not possible now"));
             } else {
                 cssFile.onload = () => {
-                    console.log("CSS injected");
+                    this.debug("CSS injected");
                     resolve(true);
                 }
             }
+            resolve();
         });
     }
+
     addTimeOut() {
         setTimeout(() => {
             document.getElementById("overlaycryptofr").className = "show";
         }, 333);
     }
+
     updatePlaceholders() {
         document.getElementById("suscpicious-domain").innerHTML = this.suspiciousDomain;
         document.getElementById("why-btn").href = `https://cryptofr.com/search?term=${encodeURIComponent(this.suspiciousDomain)}&in=titles&categories[]=67`;
@@ -100,26 +107,21 @@ class Verify {
             return false;
         };
     }
-    translate(){
 
-        //Localize by replacing __MSG_***__ meta tags
-        var objects = document.getElementsByTagName('html');
-        for (var j = 0; j < objects.length; j++)
+    translate() {
+
+        // Localize by replacing __MSG_***__ meta tags / Reduce scope to our own overlay.. :)
+        const objects = document.querySelectorAll("#overlaycryptofr *");
+        for (let j = 0; j < objects.length; j++)
         {
-            var obj = objects[j];
+            let obj     = objects[j],
+                valStrH = obj.innerHTML.toString(),
+                valNewH = valStrH.replace(/__MSG_(\w+)__/g, (match, v1) => {
+                    return v1 ? chrome.i18n.getMessage(v1) : "";
+                });
 
-            var valStrH = obj.innerHTML.toString();
-            var valNewH = valStrH.replace(/__MSG_(\w+)__/g, function(match, v1)
-            {
-                return v1 ? chrome.i18n.getMessage(v1) : "";
-            });
-
-            if(valNewH != valStrH)
-            {
-                obj.innerHTML = valNewH;
-            }
+            if(valNewH !== valStrH) { obj.innerHTML = valNewH; }
         }
-
     }
 
     checkIfAuthorized() {
@@ -136,18 +138,12 @@ class Verify {
 
 
     addToWhiteList() {
-        console.log("addtowhitelist")
         chrome.storage.local.get(["authorized"], (results) => {
-
             let authorizedDomains = results.authorized;
             if(authorizedDomains.indexOf(this.suspiciousDomain) < 0) {
-                console.log("inscription")
-
-                if (typeof results !== "array") { results = []; }
                 results.push(this.suspiciousDomain);
                 chrome.storage.local.set({ "authorized" : results });
                 return true;
-
             } else {
                 return false;
             }
@@ -157,19 +153,17 @@ class Verify {
 
     removeSubdomain(domain) {
         domain = domain.replace(/^www\./, '');
+        let parts = domain.split('.');
 
-        var parts = domain.split('.');
-
-        while (parts.length > 3) {
-            parts.shift();
-        }
+        while (parts.length > 3) { parts.shift(); }
 
         if (parts.length === 3 && ((parts[1].length > 2 && parts[2].length > 2) || (secondTLDs.indexOf(parts[1]) === -1) && firstTLDs.indexOf(parts[2]) === -1)) {
             parts.shift();
         }
 
         return parts.join('.');
-    };
+    }
+
     setIcon(icon) {
         chrome.runtime.sendMessage({type: "icon-change", icon: icon});
     }

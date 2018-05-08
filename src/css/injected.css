@@ -12,7 +12,8 @@
     transition: background 0.333s ease !important;
 }
 
-#overlaycryptofr * {
+#overlaycryptofr *, #overlaycryptofr *:before, #overlaycryptofr *:after {
+    content: none;
     font-family: Arial, sans-serif !important;
     padding: 0 !important;
     margin: 0 !important;
