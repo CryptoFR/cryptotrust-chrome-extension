@@ -14,7 +14,8 @@ class Background {
 
         this.verifyFreshness();
         this.listenToMessages();
-        
+
+
         // Reinit authorized domains
         chrome.storage.local.set({"authorized": []});
     }

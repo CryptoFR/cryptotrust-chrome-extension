@@ -45,6 +45,22 @@
     "message":"<strong>Attention</strong>, site potentiellement malveillant !",
     "description":""
   },
+  "thisWebsiteHasBeenFlagged": {
+    "message":"Le domaine <span id=\"suscpicious-domain\">example.com</span> a été signalé par la communauté <a class=\"cryptofr\" href=\"https://cryptofr.com/\" target=\"_blank\">CryptoFR</a> comme étant dangereux.",
+    "description":""
+  },
+  "seeMore": {
+    "message":"En savoir plus",
+    "description": ""
+  },
+  "iUnderstandTheRisks": {
+    "message":"Je comprends le risque et souhaite accéder malgré tout à la page demandée",
+    "description":""
+  },
+  "weveWarnedYou": {
+    "message":"... On vous aura prévenu ! ¯\\_(ツ)_/¯",
+    "description":""
+  },
   "blank": {
     "message":"blank",
     "description":""
