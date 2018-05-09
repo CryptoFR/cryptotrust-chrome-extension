@@ -13,6 +13,10 @@
     "message": "CryptoFR Spam Report",
     "description":""
   },
+  "reportDone": {
+    "message":"Votre rapport a bien été envoyé, merci !",
+    "description":""
+  },
   "doYouWantToAddComment": {
     "message":"Voulez-vous laisser un commentaire à propos de",
     "description":""

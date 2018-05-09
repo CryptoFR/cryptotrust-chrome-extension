@@ -28,32 +28,48 @@ window.onload = () => {
         document.getElementById("suspicious-domain").innerText = hostname;
         document.forms[0].domain.value = hostname;
 
-        const request = new XMLHttpRequest();
-        request.open("GET", apiUrl + "/status/" + hostname, true);
-        request.onload = () => {
-            if (request.status=== 200) {
-                const response = JSON.parse(request.responseText);
-                if (response.status === "scam") {
-                    document.getElementById("is-scam").checked = true;
-                } else if (response.status === "suspicious") {
-                    document.getElementById("is-suspicious").checked = true;
-                }
+        chrome.storage.local.get(["reports"], (results) => {
+            let reportedDomains = results.reports;
+            if (reportedDomains.indexOf(hostname) > -1) {
+                document.body.className = "reported";
+            } else {
+                const request = new XMLHttpRequest();
+                request.open("GET", apiUrl + "/status/" + hostname, true);
+                request.onload = () => {
+                    if (request.status === 200) {
+                        const response = JSON.parse(request.responseText);
+                        if (response.status === "scam") {
+                            document.getElementById("is-scam").checked = true;
+                        } else if (response.status === "suspicious") {
+                            document.getElementById("is-suspicious").checked = true;
+                        }
+                    }
+                };
+                request.send();
             }
-        };
-        request.send();
+        });
+
     });
 
     localizePopup();
 
-    document.getElementById("report-form").onsubmit = (e) => {
-        const data = new FormData(document.forms[0]);
-        const request = new XMLHttpRequest();
-        request.open("POST", apiUrl + "/report");
-        request.send(data);
+    document.getElementById("report-form").onsubmit = function (e) {
         e.preventDefault();
-        request.onload = () => {
-            window.close();
-        };
+        chrome.storage.local.get(["reports"], (results) => {
+            let reportedDomains = results.reports;
+            if(reportedDomains.indexOf(this.domain.value) < 0) {
+                reportedDomains.push(this.domain.value);
+                chrome.storage.local.set({ "reports" : reportedDomains });
+                const request = new XMLHttpRequest();
+                request.open("POST", apiUrl + "/report", true);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                request.send(`type=${encodeURIComponent(this.type.value)}&domain=${encodeURIComponent(this.domain.value)}&comment=${encodeURIComponent(this.comment.value)}`);
+
+                request.onload = () => {
+                    window.close();
+                };
+            }
+        });
         return false;
     };
 

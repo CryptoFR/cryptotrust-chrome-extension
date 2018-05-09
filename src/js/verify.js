@@ -156,8 +156,8 @@ class Verify {
         chrome.storage.local.get(["authorized"], (results) => {
             let authorizedDomains = results.authorized;
             if(authorizedDomains.indexOf(this.suspiciousDomain) < 0) {
-                results.push(this.suspiciousDomain);
-                chrome.storage.local.set({ "authorized" : results });
+                authorizedDomains.push(this.suspiciousDomain);
+                chrome.storage.local.set({ "authorized" : authorizedDomains });
                 return true;
             } else {
                 return false;
