@@ -4,10 +4,7 @@ class Verify {
 
     constructor() {
         this.debugging = true;
-        this.endpoints = {
-            checkDomain: "https://cryptotrust.trilogik.net/status/",
-            postReport: "https://cryptotrust.trilogik.net/report"
-        };
+        this.apiUrl = "https://cryptotrust.trilogik.net";
         this.suspiciousDomain = this.removeSubdomain(window.location.hostname);
         this.isScammy();
     }
@@ -18,7 +15,7 @@ class Verify {
 
         const request = new XMLHttpRequest();
 
-        request.open("GET", this.endpoints.checkDomain + this.suspiciousDomain, true);
+        request.open("GET", this.apiUrl + "/status/" + this.suspiciousDomain, true);
 
         request.onload = () => {
             if (request.status >= 200 && request.status < 400) {

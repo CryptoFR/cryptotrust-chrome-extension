@@ -12,7 +12,7 @@
       <img src="img/site-logo.png" id="logo" alt="CryptoFR" />
     </header>
 
-    <form class="report" method="post">
+    <form id="report-form" method="post">
 
       <p class="intro">__MSG_doYouWantToAddComment__ <span id="suspicious-domain">example.com</span> ?</p>
 
@@ -21,9 +21,9 @@
       <div class="switch-field">
         <div class="switch-title">__MSG_websiteTrustLevel__</div>
 
-        <input type="radio" name="scam" id="is-not-scam" value="-1" required /> <label for="is-not-scam">__MSG_verified__</label>
-        <input type="radio" name="scam" id="is-suspicious" value="1" required /> <label for="is-suspicious">__MSG_atRisk__</label>
-        <input type="radio" name="scam" id="is-scam" value="2" required /> <label for="is-scam">__MSG_dangerous__</label>
+        <input type="radio" name="type" id="is-not-scam" value="legit" required /> <label for="is-not-scam">__MSG_verified__</label>
+        <input type="radio" name="type" id="is-suspicious" value="suspicious" required /> <label for="is-suspicious">__MSG_atRisk__</label>
+        <input type="radio" name="type" id="is-scam" value="scam" required /> <label for="is-scam">__MSG_dangerous__</label>
       </div>
 
       <div>
@@ -31,7 +31,7 @@
         <textarea name="comment" required></textarea>
       </div>
 
-      <button type="submit">__MSG_send__</button>
+      <button id="submitform" type="submit">__MSG_send__</button>
     </form>
 
   </body>
