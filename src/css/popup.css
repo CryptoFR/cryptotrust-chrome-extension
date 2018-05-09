@@ -37,6 +37,21 @@ header {
   height: 26px;
 }
 
+.report-done {
+  display: none;
+  text-align: center;
+  font-weight: bold;
+  padding: 22px;
+}
+
+.reported .report-done {
+  display: block;
+}
+
+.reported form {
+  display: none;
+}
+
 form {
   padding:15px
 }
