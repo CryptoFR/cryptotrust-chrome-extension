@@ -1,4 +1,8 @@
 {
+  "lang": {
+    "message": "en",
+    "description": "Language abbr"
+  },
   "appName": {
     "message": "Cryptotrust by CryptoFR 🚀",
     "description": "The title of the application, displayed in the web store."

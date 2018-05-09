@@ -63,7 +63,7 @@ window.onload = () => {
                 const request = new XMLHttpRequest();
                 request.open("POST", apiUrl + "/report", true);
                 request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                request.send(`type=${encodeURIComponent(this.type.value)}&domain=${encodeURIComponent(this.domain.value)}&comment=${encodeURIComponent(this.comment.value)}`);
+                request.send(`type=${encodeURIComponent(this.type.value)}&domain=${encodeURIComponent(this.domain.value)}&comment=${encodeURIComponent(this.comment.value)}&lang=${encodeURIComponent(this.lang.value)}`);
 
                 request.onload = () => {
                     window.close();
