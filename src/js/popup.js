@@ -1,5 +1,7 @@
 "use strict";
 
+const apiUrl = "https://cryptotrust.trilogik.net";
+
 function localizePopup()
 {
     // Localize by replacing __MSG_***__ meta tags
@@ -19,26 +21,40 @@ function localizePopup()
 window.onload = () => {
 
     chrome.tabs.getSelected(null, (tab) => {
+
         const   tURL        = new URL(tab.url),
                 hostname    = tURL.hostname;
 
         document.getElementById("suspicious-domain").innerText = hostname;
         document.forms[0].domain.value = hostname;
-        chrome.storage.local.get(["scamSites"], (result) => {
-            if ((result.scamSites.indexOf(hostname) != -1)) {
-                document.getElementById("is-scam").checked = true;
+
+        const request = new XMLHttpRequest();
+        request.open("GET", apiUrl + "/status/" + hostname, true);
+        request.onload = () => {
+            if (request.status=== 200) {
+                const response = JSON.parse(request.responseText);
+                if (response.status === "scam") {
+                    document.getElementById("is-scam").checked = true;
+                } else if (response.status === "suspicious") {
+                    document.getElementById("is-suspicious").checked = true;
+                }
             }
-        });
+        };
+        request.send();
     });
 
-    document.forms[0].onsubmit = () => {
+    localizePopup();
+
+    document.getElementById("report-form").onsubmit = (e) => {
         const data = new FormData(document.forms[0]);
-        for (let pair of data.entries()) {
-            console.log(pair);
-        }
+        const request = new XMLHttpRequest();
+        request.open("POST", apiUrl + "/report");
+        request.send(data);
+        e.preventDefault();
+        request.onload = () => {
+            window.close();
+        };
         return false;
     };
-
-    localizePopup();
 
 };
