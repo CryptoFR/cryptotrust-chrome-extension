@@ -4,32 +4,50 @@ class Verify {
 
     constructor() {
         this.debugging = true;
+        this.endpoints = {
+            checkDomain: "https://cryptotrust.trilogik.net/status/",
+            postReport: "https://cryptotrust.trilogik.net/report"
+        };
         this.suspiciousDomain = this.removeSubdomain(window.location.hostname);
         this.isScammy();
     }
 
 
     isScammy() {
-        this.debug("🚀 Scanning scammy sites.");
-        chrome.storage.local.get(["scamSites"], (result) => {
-            this.debug(this.suspiciousDomain, result.scamSites.indexOf(this.suspiciousDomain));
-            if(result.scamSites.indexOf(this.suspiciousDomain) !== -1) {
-                this.debug("🤔 Scammy site.");
-                this.setIcon("scam");
-                this.checkIfAuthorized();
-            } else {
-                this.setIcon("unknown");
+        this.debug("🚀 Checking for scam...");
+
+        const request = new XMLHttpRequest();
+
+        request.open("GET", this.endpoints.checkDomain + this.suspiciousDomain, true);
+
+        request.onload = () => {
+            if (request.status >= 200 && request.status < 400) {
+                const response = JSON.parse(request.responseText);
+                this.setIcon(response.status);
+                if (response.status === "scam") {
+                    this.debug("🤔 Scammy site.");
+                    this.checkIfAuthorized(response.status);
+                } else if (response.status === "suspicious") {
+                    this.debug("🤔 Suspicious site.");
+                    this.checkIfAuthorized(response.status);
+                }
             }
-        });
+        };
+
+        request.onerror = (err) => {
+            this.debug(err);
+        };
+
+        request.send();
     }
 
     /**
     * Inject the pop-in in current page
     */
-    async showMessage() {
+    async showMessage(status) {
         await this.pageLoaded();
         await this.injectCSS("css/injected.css");
-        await this.injectHTML("html/injected.html");
+        await this.injectHTML("html/injected.html", status);
         this.translate();
         this.updatePlaceholders();
         this.addListeners();
@@ -45,7 +63,7 @@ class Verify {
         });
     }
 
-    async injectHTML(htmlpage) {
+    async injectHTML(htmlpage, status) {
         return new Promise((resolve, reject) => {
 
             fetch(chrome.extension.getURL(htmlpage))
@@ -54,7 +72,7 @@ class Verify {
                 // Proxy div to avoid blinking on load
                 const divToInject = document.createElement("div");
                 divToInject.setAttribute("id", "overlaycryptofr");
-                divToInject.className = "scam"; //
+                divToInject.className = status;
                 divToInject.innerHTML = data;
                 document.body.appendChild(divToInject);
                 this.debug("HTML Injected");
@@ -87,7 +105,7 @@ class Verify {
 
     addTimeOut() {
         setTimeout(() => {
-            document.getElementById("overlaycryptofr").className = "show";
+            document.getElementById("overlaycryptofr").className += " show";
         }, 333);
     }
 
@@ -124,11 +142,11 @@ class Verify {
         }
     }
 
-    checkIfAuthorized() {
+    checkIfAuthorized(status) {
          chrome.storage.local.get(["authorized"], (results) => {
             let authorizedDomains = results.authorized;
             if(authorizedDomains.indexOf(document.domain) < 0) {
-                this.showMessage();
+                this.showMessage(status);
             } else {
                 this.debug("Domain " + document.domain + " authorized for this session.");
                 return true;

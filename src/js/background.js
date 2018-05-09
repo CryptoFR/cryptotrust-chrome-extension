@@ -3,33 +3,13 @@
 class Background {
 
     constructor() {
-        this.urls = [
-          "https://raw.githubusercontent.com/CryptoFR/crypto-scams-fr/master/websites.txt",
-          "https://raw.githubusercontent.com/CryptoFR/crypto-scams-fr/master/misc.txt"
-        ],
-        this.ttl = 86400;
-        this.debugging = true;
         this.tabIcons = {};
         this.activeTab = false;
 
-        this.verifyFreshness();
         this.listenToMessages();
 
         // Reinit authorized domains
         chrome.storage.local.set({"authorized": []});
-    }
-
-    /**
-     * Verify Storage and freshness
-     */
-    verifyFreshness() {
-        chrome.storage.local.get(["lastDownload"], (result) => {
-            this.debug("Timestamp " + result.lastDownload);
-            if(typeof result.lastDownload === "undefined"
-                || result.lastDownload + this.ttl < Number.parseInt(Date.now()/1000, 0)) {
-                this.getDistantDatabases();
-            }
-        });
     }
 
     changeIcon(icon) {
@@ -47,7 +27,7 @@ class Background {
     listenToMessages() {
 
         chrome.runtime.onMessage.addListener((request) => {
-            if (request.type == "icon-change") {
+            if (request.type === "icon-change") {
                 const icon = request.icon;
                 this.changeIcon(icon);
                 this.tabIcons[this.activeTab] = icon;
@@ -65,31 +45,6 @@ class Background {
 
     }
 
-    getDistantDatabases() {
-      const xmlhttp = new XMLHttpRequest();
-
-      xmlhttp.onreadystatechange = () => {
-          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-              chrome.storage.local.set({"lastDownload": this.timestamp()});
-              chrome.storage.local.set({"scamSites": xmlhttp.responseText});
-              // Re-test current page after download
-              // Display icon end
-          }
-      };
-
-      xmlhttp.open("GET", this.urls[0], true);
-      xmlhttp.send();
-    }
-
-    timestamp() {
-        return Number.parseInt(Date.now()/1000, 0);
-    }
-
-    debug(message) {
-        if(this.debugging === true) {
-            console.log(message);
-        }
-    }
 }
 
 const Bk = new Background();

@@ -48,7 +48,6 @@
 
 #overlaycryptofr #popinwarning {
     position: absolute !important;
-    background-color: rgb(187, 0, 0) !important;
     padding: 60px 10px 15px 26px !important;
     width: 530px !important;
     bottom: -500px !important;
@@ -57,7 +56,6 @@
     margin: 0 auto !important;
     right: 20px !important;
     overflow: hidden !important;
-    box-shadow: 0 0 10px #4e2828 !important;
 }
 
 #overlaycryptofr.show {
@@ -125,7 +123,6 @@
 
 #overlaycryptofr #why-btn {
     background: rgba(255, 255, 255, 0.9) !important;
-    color: #9c1616 !important;
     padding: 10px 20px 8px !important;
     text-transform: uppercase !important;
     font-weight: bold !important;
@@ -134,6 +131,21 @@
     display: block !important;
     text-align: center !important;
     width: 80% !important;
+}
+
+#overlaycryptofr.scam #why-btn { color: #b52020 !important; }
+#overlaycryptofr.suspicious #why-btn { color: #ec9f10 !important; }
+#overlaycryptofr.scam .warning-sign { fill: #b52020 !important; }
+#overlaycryptofr.suspicious .warning-sign { fill: #ec9f10 !important; }
+
+#overlaycryptofr.scam #popinwarning {
+    background-color: rgb(187, 0, 0) !important;
+    box-shadow: 0 0 10px #4e2828 !important;
+}
+
+#overlaycryptofr.suspicious #popinwarning {
+    background-color: rgb(236, 159, 16) !important;
+    box-shadow: 0 0 10px #4e422b !important;
 }
 
 #overlaycryptofr #why-btn:hover {

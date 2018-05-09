@@ -14,6 +14,7 @@
 		"tabs",
 		"contextMenus",
         "storage",
+        "https://cryptotrust.trilogik.net/*",
 		"https://*.cryptofr.com/*",
 		"https://api.cryptofr.com/*",
         "https://raw.github.com/CryptoFR/*"
