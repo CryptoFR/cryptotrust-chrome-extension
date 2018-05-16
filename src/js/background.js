@@ -11,6 +11,7 @@ class Background {
         // Reinit authorized domains
         chrome.storage.local.set({"authorized": []});
         chrome.storage.local.set({"reports": []});
+        chrome.storage.local.set({"checked": []});
     }
 
     changeIcon(icon) {

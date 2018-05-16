@@ -9,33 +9,53 @@ class Verify {
         this.isScammy();
     }
 
+    _applyStatus(checkedDomain) {
+        this.setIcon(checkedDomain.status);
+        if (checkedDomain.status === "scam") {
+            this.debug("🤔 Scammy site.");
+            this.checkIfAuthorized(checkedDomain.status);
+        } else if (checkedDomain.status === "suspicious") {
+            this.debug("🤔 Suspicious site.");
+            this.checkIfAuthorized(checkedDomain.status);
+        }
+    }
 
     isScammy() {
         this.debug("🚀 Checking for scam...");
 
         const request = new XMLHttpRequest();
 
-        request.open("GET", this.apiUrl + "/status/" + this.suspiciousDomain, true);
+        chrome.storage.local.get(["checked"], (results) => {
+            let checkedDomains = results.checked,
+                checkedDomain = null;
 
-        request.onload = () => {
-            if (request.status >= 200 && request.status < 400) {
-                const response = JSON.parse(request.responseText);
-                this.setIcon(response.status);
-                if (response.status === "scam") {
-                    this.debug("🤔 Scammy site.");
-                    this.checkIfAuthorized(response.status);
-                } else if (response.status === "suspicious") {
-                    this.debug("🤔 Suspicious site.");
-                    this.checkIfAuthorized(response.status);
+            for(let i in checkedDomains) {
+                if (checkedDomains[i].domain === this.suspiciousDomain) {
+                    checkedDomain = checkedDomains[i];
                 }
             }
-        };
 
-        request.onerror = (err) => {
-            this.debug(err);
-        };
+            if(!checkedDomain) { // Not already checked for this session
+                request.open("GET", this.apiUrl + "/status/" + this.suspiciousDomain, true);
+                request.onload = () => {
+                    if (request.status >= 200 && request.status < 400) {
+                        const response = JSON.parse(request.responseText);
+                        checkedDomain = {
+                            domain: this.suspiciousDomain,
+                            status: response.status
+                        };
+                        checkedDomains.push(checkedDomain);
+                        chrome.storage.local.set({ "checked" : checkedDomains });
+                        return this._applyStatus(checkedDomain);
+                    }
+                };
+                request.onerror = (err) => { this.debug(err); };
+                request.send();
+            } else {
+                return this._applyStatus(checkedDomain);
+            }
+        });
 
-        request.send();
     }
 
     /**
@@ -124,7 +144,6 @@ class Verify {
     }
 
     translate() {
-
         // Localize by replacing __MSG_***__ meta tags / Reduce scope to our own overlay.. :)
         const objects = document.querySelectorAll("#overlaycryptofr *");
         for (let j = 0; j < objects.length; j++)
