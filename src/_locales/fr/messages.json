@@ -8,9 +8,7 @@
     "description": "The title of the application, displayed in the web store."
   },
   "appDesc": {
-    "message": "Cryptotrust est une extension pour Chrome extension qui permet de savoir
-  si le site sur lequel vous naviguez est digne de confiance. Les sites sont référencés par la communauté
-   sur https://github.com/CryptoFR/crypto-scams-fr",
+    "message": "Cryptotrust est une extension pour Chrome extension qui permet de savoir si le site sur lequel vous naviguez est digne de confiance. Les sites sont référencés par la communauté sur https://github.com/CryptoFR/crypto-scams-fr",
     "description":"The description of the application, displayed in the web store."
   },
   "popupTitle": {
@@ -42,7 +40,11 @@
     "description":""
   },
   "comment": {
-    "message":"Votre commentaire",
+    "message":"Votre commentaire (publique)",
+    "description":""
+  },
+  "attachedUri": {
+    "message":"URL de la page en cours (jointe au rapport)",
     "description":""
   },
   "send": {
