@@ -12,12 +12,17 @@ class Verify {
     _applyStatus(checkedDomain) {
         this.setIcon(checkedDomain.status);
         if (checkedDomain.status === "scam") {
-            this.debug("🤔 Scammy site.");
+            this.debug("🤔 Scammy domain.");
             this.checkIfAuthorized(checkedDomain.status);
         } else if (checkedDomain.status === "suspicious") {
-            this.debug("🤔 Suspicious site.");
+            this.debug("🤔 Suspicious domain.");
             this.checkIfAuthorized(checkedDomain.status);
+        } else if (checkedDomain.status === "legit") {
+            this.debug("Legit domain.");
+        } else {
+            this.debug("Unknown domain");
         }
+
     }
 
     isScammy() {
@@ -52,6 +57,7 @@ class Verify {
                 request.onerror = (err) => { this.debug(err); };
                 request.send();
             } else {
+                this.debug("Domain already checked this session");
                 return this._applyStatus(checkedDomain);
             }
         });

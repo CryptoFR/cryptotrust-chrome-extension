@@ -44,7 +44,11 @@
     "description":""
   },
   "comment": {
-    "message":"Your comment",
+    "message":"Your comment (public)",
+    "description":""
+  },
+  "attachedUri": {
+    "message":"URI of current webpage (will be attached to your report)",
     "description":""
   },
   "send": {

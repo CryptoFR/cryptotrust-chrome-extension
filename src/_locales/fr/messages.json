@@ -40,7 +40,11 @@
     "description":""
   },
   "comment": {
-    "message":"Votre commentaire",
+    "message":"Votre commentaire (publique)",
+    "description":""
+  },
+  "attachedUri": {
+    "message":"URL de la page en cours (jointe au rapport)",
     "description":""
   },
   "send": {

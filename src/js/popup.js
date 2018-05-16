@@ -27,6 +27,7 @@ window.onload = () => {
 
         document.getElementById("suspicious-domain").innerText = hostname;
         document.forms[0].domain.value = hostname;
+        document.forms[0].uri.value = tab.url;
 
         chrome.storage.local.get(["reports"], (results) => {
             let reportedDomains = results.reports;
@@ -63,8 +64,11 @@ window.onload = () => {
                 const request = new XMLHttpRequest();
                 request.open("POST", apiUrl + "/report", true);
                 request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                request.send(`type=${encodeURIComponent(this.type.value)}&domain=${encodeURIComponent(this.domain.value)}&comment=${encodeURIComponent(this.comment.value)}&lang=${encodeURIComponent(this.lang.value)}`);
-
+                request.send(`type=${encodeURIComponent(this.type.value)}\
+                    &domain=${encodeURIComponent(this.domain.value)}\
+                    &comment=${encodeURIComponent(this.comment.value)}\
+                    &lang=${encodeURIComponent(this.lang.value)}\
+                    &uri=${encodeURIComponent(this.uri.value)}`);
                 request.onload = () => {
                     window.close();
                 };

@@ -136,14 +136,23 @@ form .switch-field {
   border-radius: 0 4px 4px 0;
 }
 
-form textarea {
+form textarea, form input[type=text] {
   width: 100%;
-  height: 142px;
   border: 1px solid lightgray;
   resize: none;
   outline: none;
   padding: 4px 6px;
   font-family: Arial, sans-serif;
+}
+
+form textarea {
+  height: 142px;
+}
+
+input[name="uri"] {
+  color: #b7b7b7;
+  background: #e6e6e6;
+  font-size: 10px;
 }
 
 form button {
