@@ -3,8 +3,8 @@
 class Verify {
 
     constructor() {
-        this.debugging = true;
-        this.apiUrl = "https://cryptotrust.trilogik.net";
+        this.debugging = false;
+        this.apiUrl = "https://api.cryptotrust.io";
         this.suspiciousDomain = this.removeSubdomain(window.location.hostname);
         this.isScammy();
     }

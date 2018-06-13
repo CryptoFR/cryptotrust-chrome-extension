@@ -1,6 +1,6 @@
 "use strict";
 
-const apiUrl = "https://cryptotrust.trilogik.net";
+const apiUrl = "https://api.cryptotrust.io";
 
 function localizePopup()
 {
@@ -14,7 +14,7 @@ function localizePopup()
             return v1 ? chrome.i18n.getMessage(v1) : "";
         });
 
-        if(valNewH != valStrH) { obj.innerHTML = valNewH; }
+        if(valNewH !== valStrH) { obj.innerHTML = valNewH; }
     }
 }
 
