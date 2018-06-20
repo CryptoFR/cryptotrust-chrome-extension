@@ -1,6 +1,6 @@
 "use strict";
 
-const apiUrl = "https://cryptotrust.trilogik.net";
+const apiUrl = "https://api.cryptotrust.io";
 
 function localizePopup()
 {
@@ -14,7 +14,7 @@ function localizePopup()
             return v1 ? chrome.i18n.getMessage(v1) : "";
         });
 
-        if(valNewH != valStrH) { obj.innerHTML = valNewH; }
+        if(valNewH !== valStrH) { obj.innerHTML = valNewH; }
     }
 }
 
@@ -62,7 +62,7 @@ window.onload = () => {
                 reportedDomains.push(this.domain.value);
                 chrome.storage.local.set({ "reports" : reportedDomains });
                 const request = new XMLHttpRequest();
-                request.open("POST", apiUrl + "/report", true);
+                request.open("POST", apiUrl + "/reports", true);
                 request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 request.send(`type=${encodeURIComponent(this.type.value)}\
                     &domain=${encodeURIComponent(this.domain.value)}\

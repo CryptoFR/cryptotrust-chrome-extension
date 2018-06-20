@@ -3,26 +3,18 @@
 class Verify {
 
     constructor() {
-        this.debugging = true;
-        this.apiUrl = "https://cryptotrust.trilogik.net";
+        this.debugging = false;
+        this.apiUrl = "https://api.cryptotrust.io";
         this.suspiciousDomain = this.removeSubdomain(window.location.hostname);
         this.isScammy();
     }
 
     _applyStatus(checkedDomain) {
+        this.debug("Domain status: " + checkedDomain.status);
         this.setIcon(checkedDomain.status);
-        if (checkedDomain.status === "scam") {
-            this.debug("🤔 Scammy domain.");
+        if (["scam", "suspicious"].indexOf(checkedDomain.status) > -1) {
             this.checkIfAuthorized(checkedDomain.status);
-        } else if (checkedDomain.status === "suspicious") {
-            this.debug("🤔 Suspicious domain.");
-            this.checkIfAuthorized(checkedDomain.status);
-        } else if (checkedDomain.status === "legit") {
-            this.debug("Legit domain.");
-        } else {
-            this.debug("Unknown domain");
         }
-
     }
 
     isScammy() {
@@ -176,7 +168,9 @@ class Verify {
         });
     }
 
-
+    /**
+     * Add current domain to whitelist (don't pop for current session)
+     */
     addToWhiteList() {
         chrome.storage.local.get(["authorized"], (results) => {
             let authorizedDomains = results.authorized;
@@ -190,24 +184,36 @@ class Verify {
         });
     }
 
-
+    /**
+     * Remove subdomains if present
+     * @param domain
+     * @return {string} cleaned domain without any subdomain
+     */
     removeSubdomain(domain) {
         domain = domain.replace(/^www\./, '');
         let parts = domain.split('.');
 
         while (parts.length > 3) { parts.shift(); }
 
-        if (parts.length === 3 && ((parts[1].length > 2 && parts[2].length > 2) || (secondTLDs.indexOf(parts[1]) === -1) && firstTLDs.indexOf(parts[2]) === -1)) {
+        if (parts.length === 3 && (parts[1].length > 2 && parts[2].length > 2)) {
             parts.shift();
         }
 
         return parts.join('.');
     }
 
+    /**
+     * Set current icon
+     * @param icon icon name / status
+     */
     setIcon(icon) {
         chrome.runtime.sendMessage({type: "icon-change", icon: icon});
     }
 
+    /**
+     * Console log if debugging enabled
+     * @param message
+     */
     debug(message) {
         if(this.debugging === true) {
             console.log(message);
