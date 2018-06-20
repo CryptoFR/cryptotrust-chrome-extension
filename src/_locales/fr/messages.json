@@ -1,78 +1,78 @@
 {
-  "lang": {
-    "message": "fr",
-    "description": "Language abbr"
-  },
-  "appName": {
-    "message": "Cryptotrust par CryptoFR 🚀",
-    "description": "The title of the application, displayed in the web store."
-  },
-  "appDesc": {
-    "message": "Cryptotrust est une extension pour Chrome extension qui permet de savoir si le site sur lequel vous naviguez est digne de confiance. Les sites sont référencés par la communauté sur https://github.com/CryptoFR/crypto-scams-fr",
-    "description":"The description of the application, displayed in the web store."
-  },
-  "popupTitle": {
-    "message": "CryptoFR Spam Report",
-    "description":""
-  },
-  "reportDone": {
-    "message":"Votre rapport a bien été envoyé, merci !",
-    "description":""
-  },
-  "doYouWantToAddComment": {
-    "message":"Voulez-vous laisser un commentaire à propos de",
-    "description":""
-  },
-  "websiteTrustLevel": {
-    "message":"Niveau de fiabilité du site",
-    "description":""
-  },
-  "verified": {
-    "message":"Vérifié",
-    "description":""
-  },
-  "atRisk": {
-    "message":"À risque",
-    "description":""
-  },
-  "dangerous": {
-    "message":"Dangereux",
-    "description":""
-  },
-  "comment": {
-    "message":"Votre commentaire (publique)",
-    "description":""
-  },
-  "attachedUri": {
-    "message":"URL de la page en cours (jointe au rapport)",
-    "description":""
-  },
-  "send": {
-    "message":"Envoyer",
-    "description":""
-  },
-  "cautionDangerous": {
-    "message":"<strong>Attention</strong>, site potentiellement malveillant !",
-    "description":""
-  },
-  "thisWebsiteHasBeenFlagged": {
-    "message":"Le domaine <span id=\"suscpicious-domain\">example.com</span> a été signalé par la communauté <a class=\"cryptofr\" href=\"https://cryptofr.com/\" target=\"_blank\">CryptoFR</a> comme étant dangereux.",
-    "description":""
-  },
-  "seeMore": {
-    "message":"En savoir plus",
-    "description": ""
-  },
-  "iUnderstandTheRisks": {
-    "message":"Je comprends le risque et souhaite accéder malgré tout à la page demandée",
-    "description":""
-  },
-  "weveWarnedYou": {
-    "message":"... On vous aura prévenu ! ¯\\_(ツ)_/¯",
-    "description":""
-  },
-  "blank": {
-    "message":"blank",
-    "description":""
-  }
+    "lang": {
+        "message": "fr",
+        "description": "Language abbr"
+    },
+    "appName": {
+        "message": "Cryptotrust par CryptoFR 🚀",
+        "description": "The title of the application, displayed in the web store."
+    },
+    "appDesc": {
+        "message": "Cryptotrust est une extension pour Chrome extension qui permet de savoir si le site sur lequel vous naviguez est digne de confiance.",
+        "description": "The description of the application, displayed in the web store."
+    },
+    "popupTitle": {
+        "message": "CryptoFR Spam Report",
+        "description": ""
+    },
+    "reportDone": {
+        "message": "Votre rapport a bien été envoyé, merci !",
+        "description": ""
+    },
+    "doYouWantToAddComment": {
+        "message": "Voulez-vous laisser un commentaire à propos de",
+        "description": ""
+    },
+    "websiteTrustLevel": {
+        "message": "Niveau de fiabilité du site",
+        "description": ""
+    },
+    "verified": {
+        "message": "Vérifié",
+        "description": ""
+    },
+    "atRisk": {
+        "message": "À risque",
+        "description": ""
+    },
+    "dangerous": {
+        "message": "Dangereux",
+        "description": ""
+    },
+    "comment": {
+        "message": "Votre commentaire (publique)",
+        "description": ""
+    },
+    "attachedUri": {
+        "message": "URL de la page en cours (jointe au rapport)",
+        "description": ""
+    },
+    "send": {
+        "message": "Envoyer",
+        "description": ""
+    },
+    "cautionDangerous": {
+        "message": "<strong>Attention</strong>, site potentiellement malveillant !",
+        "description": ""
+    },
+    "thisWebsiteHasBeenFlagged": {
+        "message": "Le domaine <span id=\"suscpicious-domain\">example.com</span> a été signalé par la communauté <a class=\"cryptofr\" href=\"https://cryptofr.com/\" target=\"_blank\">CryptoFR</a> comme étant dangereux.",
+        "description": ""
+    },
+    "seeMore": {
+        "message": "En savoir plus",
+        "description": ""
+    },
+    "iUnderstandTheRisks": {
+        "message": "Je comprends le risque et souhaite accéder malgré tout à la page demandée",
+        "description": ""
+    },
+    "weveWarnedYou": {
+        "message": "... On vous aura prévenu ! ¯\\_(ツ)_/¯",
+        "description": ""
+    },
+    "blank": {
+        "message": "blank",
+        "description": ""
+    }
 }
