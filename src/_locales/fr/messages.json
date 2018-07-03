@@ -4,7 +4,7 @@
         "description": "Language abbr"
     },
     "appName": {
-        "message": "Cryptotrust par CryptoFR 🚀",
+        "message": "Cryptotrust, par CryptoFR",
         "description": "The title of the application, displayed in the web store."
     },
     "appDesc": {
@@ -12,7 +12,7 @@
         "description": "The description of the application, displayed in the web store."
     },
     "popupTitle": {
-        "message": "CryptoFR Spam Report",
+        "message": "Cryptotrust Spam Report",
         "description": ""
     },
     "reportDone": {
@@ -56,7 +56,7 @@
         "description": ""
     },
     "thisWebsiteHasBeenFlagged": {
-        "message": "Le domaine <span id=\"suscpicious-domain\">example.com</span> a été signalé par la communauté <a class=\"cryptofr\" href=\"https://cryptofr.com/\" target=\"_blank\">CryptoFR</a> comme étant dangereux.",
+        "message": "Le domaine <span id=\"suscpicious-domain\">example.com</span> a été signalé par la communauté <a class=\"cryptotrust-logo\" href=\"https://cryptotrust.io/\" target=\"_blank\">Cryptotrust</a> comme étant dangereux.",
         "description": ""
     },
     "seeMore": {
