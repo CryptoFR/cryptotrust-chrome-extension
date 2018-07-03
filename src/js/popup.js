@@ -47,10 +47,11 @@ window.onload = () => {
                 request.onload = () => {
                     if (request.status === 200) {
                         const response = JSON.parse(request.responseText);
-                        if (response.status === "scam") {
-                            document.getElementById("is-scam").checked = true;
-                        } else if (response.status === "suspicious") {
-                            document.getElementById("is-suspicious").checked = true;
+                        const radioBtn = document.getElementById(`is-${response.status}`);
+
+                        if(typeof radioBtn !== "undefined") {
+                            radioBtn.checked = true;
+                            document.body.className = response.status;
                         }
                     }
                 };
