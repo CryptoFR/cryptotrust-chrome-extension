@@ -2,9 +2,11 @@
 
 const apiUrl = "https://api.cryptotrust.io";
 
+/**
+ * Localize by replacing __MSG_***__ meta tags
+ */
 function localizePopup()
 {
-    // Localize by replacing __MSG_***__ meta tags
     const objects = document.getElementsByTagName('html');
     for (let j = 0; j < objects.length; j++)
     {
@@ -30,23 +32,31 @@ window.onload = () => {
         document.forms[0].uri.value = tab.url;
 
         chrome.storage.local.get(["reports"], (results) => {
+
             let reportedDomains = results.reports;
+
             if (reportedDomains.indexOf(hostname) > -1) {
+
                 document.body.className = "reported";
+
             } else {
+
+                // Get current domain status from the API
                 const request = new XMLHttpRequest();
                 request.open("GET", apiUrl + "/status/" + hostname, true);
                 request.onload = () => {
                     if (request.status === 200) {
                         const response = JSON.parse(request.responseText);
-                        if (response.status === "scam") {
-                            document.getElementById("is-scam").checked = true;
-                        } else if (response.status === "suspicious") {
-                            document.getElementById("is-suspicious").checked = true;
+                        const radioBtn = document.getElementById(`is-${response.status}`);
+
+                        if(typeof radioBtn !== "undefined") {
+                            radioBtn.checked = true;
+                            document.body.className = response.status;
                         }
                     }
                 };
                 request.send();
+
             }
         });
 
@@ -54,13 +64,26 @@ window.onload = () => {
 
     localizePopup();
 
-    document.getElementById("report-form").onsubmit = function (e) {
+    /**
+     * Handle form submission
+     */
+    const tForm = document.getElementById("report-form");
+
+    tForm.onsubmit = function (e) {
+
         e.preventDefault();
-        chrome.storage.local.get(["reports"], (results) => {
+
+        chrome.storage.local.get(["reports"], results => {
+
             let reportedDomains = results.reports;
+
             if(reportedDomains.indexOf(this.domain.value) < 0) {
+
+                // Add to local history & update localstorage
                 reportedDomains.push(this.domain.value);
                 chrome.storage.local.set({ "reports" : reportedDomains });
+
+                // Send request to CryptoTrust API
                 const request = new XMLHttpRequest();
                 request.open("POST", apiUrl + "/reports", true);
                 request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -69,12 +92,28 @@ window.onload = () => {
                     &comment=${encodeURIComponent(this.comment.value)}\
                     &lang=${encodeURIComponent(this.lang.value)}\
                     &uri=${encodeURIComponent(this.uri.value)}`);
-                request.onload = () => {
-                    window.close();
-                };
+                request.onload = () => window.close();
+
             }
+
         });
+
         return false;
     };
+
+    // Change popup style according to current report type
+    let     previousValue = null;
+    const   reportingOptionsRadios = document.reportForm.type,
+            checkClick = function () {
+                const value = this.value;
+                if(value !== previousValue) {
+                    previousValue = value;
+                    document.body.className = value;
+                }
+            };
+
+    for(let i = 0; i < reportingOptionsRadios.length; i++) {
+        reportingOptionsRadios[i].onclick = checkClick;
+    }
 
 };

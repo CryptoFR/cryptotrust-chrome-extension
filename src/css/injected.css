@@ -67,7 +67,7 @@
 }
 
 #overlaycryptofr #popinwarning header {
-    background: black !important;
+    background: white !important;
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
@@ -76,16 +76,16 @@
     height: 45px !important;
 }
 
-#overlaycryptofr #popinwarning header .cryptofr {
-    opacity: 0.6 !important;
+#overlaycryptofr #popinwarning header .logo {
+    opacity: 1 !important;
     position: absolute !important;
-    right: 14px !important;
-    top: 11px !important;
+    right: 12px !important;
+    top: 8px !important;
     transition: opacity 0.333s ease;
 }
 
-#overlaycryptofr #popinwarning header .cryptofr:hover {
-    opacity: 1 !important;
+#overlaycryptofr #popinwarning header .logo:hover {
+    opacity: 0.6 !important;
 }
 
 #overlaycryptofr h1 {
@@ -94,11 +94,15 @@
     font-size: 16px !important;
     text-align: left !important;
     text-transform: none !important;
-    color: white !important;
+    color: #212121 !important;
     line-height: 30px !important;
     font-weight: bold !important;
     display: inline-block !important;
     margin-right: 100px !important;
+}
+
+#overlaycryptofr h1 strong {
+    color: #212121 !important;
 }
 
 #overlaycryptofr #popinwarning, #overlaycryptofr #popinwarning * {
@@ -110,15 +114,25 @@
     padding-left: 70px !important;
 }
 
-#overlaycryptofr .cryptofr {
+#overlaycryptofr .logo {
     display: inline-block !important;
-    background: transparent url(https://cryptofr.com/assets/uploads/system/site-logo.png) no-repeat 0 0 !important;
+    background: transparent url(https://cryptotrust.io/img/logo.png) no-repeat 0 0 !important;
+    background-size: 100% auto !important;
+    text-indent: 140px !important;
+    overflow: hidden !important;
+    width: 105px !important;
+    height: 28px !important;
+}
+
+#overlaycryptofr .cryptotrust-logo {
+    display: inline-block !important;
+    background: transparent url(https://cryptotrust.io/img/small-white-logo.png) no-repeat 0 0 !important;
     background-size: 100% auto !important;
     text-indent: 100px !important;
     overflow: hidden !important;
-    width: 80px !important;
-    height: 20px !important;
-    margin: 0 2px -4px  !important;
+    width: 92px !important;
+    height: 25px !important;
+    margin: 0 2px -8px !important;
 }
 
 #overlaycryptofr #why-btn {
